@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            cursor: url("img/mouse.png") 0 0, auto;
+            background: url("img/homebg.jpg") no-repeat;
+
+            background-size: cover;
+        }
+
+        #box {
+            background: url("img/playbg.gif") no-repeat black;
+            width: 385px;
+            height: 500px;
+            position: relative;
+            left: 50%;
+            top: 20px;
+            margin-left: -193px;
+            overflow: hidden;
+
+
+        }
+
+        #playbtn {
+            width: 100px;
+            height: 30px;
+            margin: 350px auto 0;
+            font-family: Consolas;
+
+            color: #8af033;
+            background: white;
+            border-radius: 25px;
+            text-align: center;
+            line-height: 30px;
+
+            box-shadow: 0px -25px 10px 7px black inset;
+            transition: all 0.3s linear;
+        }
+
+        #playbtn:hover {
+            box-shadow: 0px 25px 15px 7px black inset;
+            font-size: 20px;
+
+        }
+
+        #logo {
+            position: absolute;
+            margin-top: 300px;
+            text-align: center;
+            display: block;
+            width: 100%;
+            font-size: 38px;
+            color: #8af033;
+            font-family: Consolas;
+            animation: logoAnim 5s linear infinite;
+
+        }
+
+        @keyframes logoAnim {
+            0% {
+                font-size: 38px;
+                transform: rotateZ(0deg);
+
+            }
+            30% {
+                font-size: 38px;
+                transform: rotateZ(0deg);
+
+            }
+            40% {
+                font-size: 38px;
+
+                transform: rotateZ(-45deg);
+            }
+            50% {
+                font-size: 38px;
+
+                transform: rotateZ(0deg);
+            }
+            60% {
+                font-size: 38px;
+                transform: rotateZ(0deg);
+
+            }
+            70% {
+                font-size: 38px;
+                transform: rotateZ(45deg);
+            }
+            80% {
+                font-size: 38px;
+                transform: rotateZ(0deg);
+
+            }
+            85% {
+                font-size: 42px;
+                transform: rotateZ(0deg);
+
+            }
+
+        }
+
+        #select {
+            display: none;
+            height: 500px;
+        }
+
+        #select .select-hover {
+            width: 70px;
+            height: 85px;
+            padding-left: 30px;
+            padding-top: 15px;
+            float: left;
+            margin-left: 20px;
+        }
+
+        #select img {
+
+
+        }
+
+        .select-hover:hover {
+
+            background: rgba(255, 255, 255, 0.8);
+
+        }
+
+        #select-help {
+            text-align: center;
+            margin-top: 100px;
+            margin-bottom: 30px;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: 隶书;
+            animation: help-color 0.8s linear infinite;
+        }
+
+        @keyframes help-color {
+            0% {
+                color: #dee1e1;
+            }
+            43% {
+                color: #909e00;
+            }
+            70% {
+                color: #a600a3;
+            }
+        }
+
+        #intr {
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 200px;
+            width: 370px;
+            border: 2px solid #c6c6c6;
+            margin: 0 6px 3px;
+            color: #c6c6c6;
+            transition: all 0.5s linear;
+
+        }
+
+        #intr-name {
+            border: 1px solid #c6c6c6;
+        }
+
+        #intr-content {
+            border: 1px solid #c6c6c6;
+            height: 176px;
+        }
+
+        #select-fly {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            transition: all 0.5s linear;
+        }
+
+        #intr-name span {
+
+            color: red;
+        }
+
+        #intr-content span {
+            color: #8af033;
+        }
+
+        .clickTeXiao {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            animation: clickAnim 1s linear infinite;
+            background: #00c3b6;
+        }
+
+        @keyframes clickAnim {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+
+            }
+            50% {
+                transform: scale(2);
+                opacity: 0;
+
+            }
+            100% {
+                display: none;
+            }
+
+        }
+
+        #gameover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 385px;
+            display: none;
+
+        }
+
+        #gameover img {
+            position: absolute;
+            width: 385px;
+        }
+
+        #gameover p {
+            position: absolute;
+            top: 30px;
+            width: 385px;
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        #gameover div {
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            background: gray;
+            position: absolute;
+            color: white;
+            text-align: center;
+            border-radius: 25px;
+            left: 100px;
+        }
+
+        #gameover #replay {
+            top: 180px;
+
+
+        }
+
+        #gameover #goHome {
+            top: 250px;
+        }
+
+        #flybox {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+        #scroeBox{
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: green;
+            display: none;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<section id="box">
+
+
+    <div id="flybox">
+
+    </div>
+    <h1 id="logo">I LOVE DA CXK</h1>
+    <div id="playbtn">
+        PLAY GAME
+    </div>
+
+    <div id="select">
+        <div id="select-fly">
+            <div id="select-help">
+                请选择你的飞机
+            </div>
+            <div id="fly" class="select-hover">
+                <img src="img/fly.gif">
+            </div>
+            <div id="fly2" class="select-hover">
+                <img src="img/fly2.gif">
+
+            </div>
+            <div id="fly3" class="select-hover">
+                <img src="img/fly3.gif">
+
+            </div>
+        </div>
+        <div id="intr">
+            <div id="intr-name">
+                飞机名称:<span></span>
+            </div>
+            <div id="intr-content">
+                飞机简介:<span></span>
+            </div>
+        </div>
+    </div>
+    <div id="gameover">
+        <img src="img/gameover.gif" alt="">
+
+        <p>GAME OVER<br>蔡徐坤觉得你很菜</p>
+        <div id="replay">
+            不服在战
+        </div>
+        <div id="goHome">
+            主菜单
+        </div>
+    </div>
+    <div id="scroeBox">
+        <p>
+            分数 :<span id="scroe">0</span>
+        </p>
+    </div>
+</section>
+
+<script>
+    var oPlayBtn = document.getElementById('playbtn');
+    var oGameOverMenu = document.getElementById('gameover');
+    var oFlyBox = document.getElementById('flybox');
+    var oBackHome = document.getElementById('goHome');
+    console.log(oPlayBtn);
+    var bgm = new Audio();
+    var bgm2 = new Audio();
+    var fireM = new Audio();
+    var clickM = new Audio();
+    var gameOverM = new Audio();
+    var box = document.getElementById('box');
+    var logo = document.getElementById('logo');
+    var oSelect = document.getElementById('select');
+    var fly = document.getElementById('fly');
+    var fly2 = document.getElementById('fly2');
+    var fly3 = document.getElementById('fly3');
+    var oIntr = document.getElementById('intr');
+    var oSelectFly = document.getElementById('select-fly');
+    var aSelectHover = document.getElementsByClassName('select-hover');
+    var oReplay = document.getElementById('replay');
+    var oScroe = document.getElementById('scroe');
+    var oScroeBox = document.getElementById('scroeBox');
+    var oPlayerFly;
+    var oBotFly;
+    var oBossCXK;
+    var cxk = [];
+    var aFire = [];
+    var aBoss=[];
+    var timer1;
+    var timer2;
+    var timer3;
+    var timer4;
+    var timer5;
+    var timer6;
+    var timer7;
+    var thisSrc;
+    var scroeVlue=0;
+    fireM.src = 'music/fire.wav';
+
+
+    document.body.style.height = document.documentElement.clientHeight + 'px';
+
+
+    oPlayBtn.onclick = function () {
+
+        bgm.src = 'music/bgm.mp3';
+        bgm.loop = true;
+        bgm.autoplay = true;
+        box.style.background = 'url(img/bg2.gif)';
+        logo.style.display = 'none';
+        oPlayBtn.style.display = 'none';
+        oSelect.style.display = 'block';
+        oIntr.style.bottom = -0 + 'px';
+        oSelectFly.style.top = 0 + 'px';
+        oIntr.style.display = 'block';
+        oSelectFly.style.display = 'block';
+
+    };
+    aSelectHover[0].onmouseenter = function () {
+        oIntr.children[0].children[0].innerHTML = 'F-22';
+        oIntr.children[1].children[0].innerHTML = 'F-22采用双垂尾双发单座布局。垂尾向外倾斜27度，恰好处于一般隐身设计的边缘。其两侧进气口装在翼前缘延伸面（边条翼）下方，与喷嘴一样，都作了抑制红外辐射的隐形设计，主翼和水平安定面采用相同的后掠角和后缘前掠角，都是小展弦比的梯形平面形，水泡型座舱盖凸出于前机身上部，全部武器都隐蔽地挂在4个内部弹舱之中。';
+
+    };
+    aSelectHover[2].onmouseenter = function () {
+        oIntr.children[0].children[0].innerHTML = 'F-22-黄金';
+
+        oIntr.children[1].children[0].innerHTML = '至尊VIP12专属黄金纪念版战斗机(内测期间免费)';
+
+
+    };
+    aSelectHover[1].onmouseenter = function () {
+        oIntr.children[0].children[0].innerHTML = 'F-22-Beta';
+
+        oIntr.children[1].children[0].innerHTML = '内测玩家专属豪华定制战斗机';
+
+
+    };
+    aSelectHover[0].onmouseleave = aSelectHover[2].onmouseleave = aSelectHover[1].onmouseleave = function () {
+        oIntr.children[0].children[0].innerHTML = '';
+
+        oIntr.children[1].children[0].innerHTML = '';
+    };
+    fly3.onclick = fly2.onclick = fly.onclick = function () {
+
+        thisSrc = this.children[0].src;
+        oIntr.style.bottom = -oIntr.offsetHeight - 30 + 'px';//控制飞机简介框和选择框离开可视区
+        oSelectFly.style.top = -oIntr.offsetHeight - 80 + 'px';//控制飞机简介框和选择框离开可视区
+       setTimeout(function () {
+
+           oIntr.style.display = 'none';
+           oSelectFly.style.display = 'none';
+            oScroeBox.style.display='block';
+           oPlayerFly = new playerFly(thisSrc, 5, 165, 427);
+
+
+           timer1 = setInterval(botCxk, 300);
+           timer2 = setInterval(botCxkMove, 100);
+           timer3 = setInterval(FireMove, 100);
+           timer4 = setInterval(findClos, 30);
+           timer5 = setInterval(function () {
+               if (leftFlag) {
+                   if (oPlayerFly.obj.offsetLeft >= 0) {
+                       oPlayerFly.leftMove();
+                   }
+
+               }
+               if (topFlag) {
+                   if (oPlayerFly.obj.offsetTop >= 0) {
+
+
+                       oPlayerFly.topMove();
+                   }
+               }
+               if (rightFlag) {
+                   if (oPlayerFly.obj.offsetLeft <= box.offsetWidth - oPlayerFly.obj.offsetWidth) {
+                       oPlayerFly.rightMove();
+
+                   }
+               }
+               if (bottomFlag) {
+                   if (oPlayerFly.obj.offsetTop <= box.offsetHeight - oPlayerFly.obj.offsetHeight) {
+                       oPlayerFly.bottomMove();
+
+                   }
+               }
+
+           }, 10);
+           timer6 = setInterval(bossShow,2000);
+           timer7=setInterval(bossmove,80);
+           bgm.src = false;
+           bgm2.src = 'music/bgm2.mp3';
+           bgm2.play();
+           bgm2.loop = true;
+       },900);
+
+
+
+
+    };
+    oReplay.onclick = function () {
+        oGameOverMenu.style.display = 'none';
+        scroeVlue=0;
+        oPlayerFly = new playerFly(thisSrc, 5, 165, 427);
+        timer1 = setInterval(botCxk, 300);
+        timer2 = setInterval(botCxkMove, 100);
+        timer3 = setInterval(FireMove, 100);
+        timer4 = setInterval(findClos, 30);
+        timer5 = setInterval(function () {
+            if (leftFlag) {
+                if (oPlayerFly.obj.offsetLeft >= 0) {
+                    oPlayerFly.leftMove();
+                }
+
+            }
+            if (topFlag) {
+                if (oPlayerFly.obj.offsetTop >= 0) {
+
+
+                    oPlayerFly.topMove();
+                }
+            }
+            if (rightFlag) {
+                if (oPlayerFly.obj.offsetLeft <= box.offsetWidth - oPlayerFly.obj.offsetWidth) {
+                    oPlayerFly.rightMove();
+
+                }
+            }
+            if (bottomFlag) {
+                if (oPlayerFly.obj.offsetTop <= box.offsetHeight - oPlayerFly.obj.offsetHeight) {
+                    oPlayerFly.bottomMove();
+
+                }
+            }
+
+        }, 10);
+        timer6 = setInterval(bossShow,2000);
+        timer7=setInterval(bossmove,80);
+        gameOverM.src = '';
+        bgm2.src = 'music/bgm2.mp3';
+        bgm2.play()
+    };
+    oBackHome.onclick = function () {
+        oScroeBox.style.display='none';
+        scroeVlue=0;
+        oGameOverMenu.style.display = 'none';
+        box.style.background = ' url("img/playbg.gif") no-repeat black';
+        logo.style.display = 'block';
+        oPlayBtn.style.display = 'block';
+        gameOverM.src='';
+
+
+    };
+
+    function playerFly(src, speed, x, y) {
+        this.obj = document.createElement('img');
+
+        this.src = src;
+        this.speed = speed;
+        this.x = x;
+        this.y = y;
+        this.ini();
+
+    }
+
+
+    playerFly.prototype.ini = function () {
+        this.obj.style.position = 'absolute';
+        this.obj.style.left = this.x + 'px';
+        this.obj.style.top = this.y + 'px';
+        this.obj.src = this.src + '';
+        this.obj.style.transition = 'all 0.01s linear';
+        oFlyBox.appendChild(this.obj)
+
+    };
+    playerFly.prototype.leftMove = function () {
+        this.obj.style.left = this.obj.offsetLeft - this.speed + 'px';
+
+    };
+    playerFly.prototype.topMove = function () {
+        this.obj.style.top = this.obj.offsetTop - this.speed + 'px';
+
+    }
+    ;playerFly.prototype.bottomMove = function () {
+        this.obj.style.top = this.obj.offsetTop + this.speed + 'px';
+
+    };
+    playerFly.prototype.rightMove = function () {
+        this.obj.style.left = this.obj.offsetLeft + this.speed + 'px';
+
+    };
+
+
+
+    function Fire(src, x, y, speed) {
+        this.obj = document.createElement('img');
+        this.x = x;
+        this.y = y;
+        this.src = src;
+        this.speed = speed;
+
+
+        this.init();
+
+    };
+    Fire.prototype.init = function () {
+
+        this.obj.style.position = 'absolute';
+        this.obj.src = this.src;
+        this.obj.style.left = this.x + 'px';
+        this.obj.style.top = this.y + 'px';
+        fireM.play();
+        oFlyBox.appendChild(this.obj);
+
+
+    };
+    Fire.prototype.move = function () {
+        this.obj.style.top = this.obj.offsetTop - this.speed + 'px';
+
+    };
+
+    function FireMove() {
+        for (var i = 0; i < aFire.length; i++) {
+            aFire[i].move();
+            if (aFire[i].obj.offsetTop <= 0) {
+                oFlyBox.removeChild(aFire[i].obj);
+                aFire.splice(i, 1)
+            }
+
+        }
+    }
+
+    function botFly(src, x, y, speed) {
+        this.obj = document.createElement('img');
+        this.src = src;
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.dead = false;
+        this.deadTime = 5;
+        this.dieM = new Audio();
+        this.init();
+
+
+    }
+
+
+    botFly.prototype.init = function () {
+        this.obj.style.position = 'absolute';
+        this.obj.style.left = this.x + 'px';
+        this.obj.style.top = this.y + 'px';
+        this.obj.src = this.src;
+
+        this.dieM.src = 'music/die.mp3';
+        oFlyBox.appendChild(this.obj);
+
+
+    };
+    botFly.prototype.move = function () {
+
+        this.obj.style.top = this.obj.offsetTop + this.speed + 'px';
+
+
+    };
+
+    function botCxk() {
+        oBotFly = new botFly('img/botcxk.gif', getRandom(0, box.offsetWidth - 80), -80, 15);
+        cxk.push(oBotFly)
+    }
+
+    function botCxkMove() {
+        for (var i = 0; i < cxk.length; i++) {
+            if (cxk[i].dead == false) {
+                cxk[i].move();
+                if (cxk[i].obj.offsetTop >= box.offsetHeight) {
+
+                    oFlyBox.removeChild(cxk[i].obj);
+                    cxk.splice(i, 1);
+                }
+            } else {
+                cxk[i].deadTime--;
+                if (cxk[i].deadTime == 0) {
+                    oFlyBox.removeChild(cxk[i].obj)
+                }
+
+            }
+        }
+
+
+    }
+    function botBoss(src,x,y,speed,blood) {
+        this.deadM=new Audio();
+        this.deadM.src='music/bossdead.mp3';
+        this.obj=document.createElement('img');
+        this.src=src;
+        this.x=x;
+        this.y=y;
+        this.speed=speed;
+        this.dead=false;
+        this.blood=blood;
+        this.deadtime=5;
+      this.init()
+    };
+    botBoss.prototype.init=function () {
+
+        this.obj.style.position='absolute';
+        this.obj.style.left=this.x+'px';
+        this.obj.style.top=this.y+'px';
+        this.obj.src=this.src;
+        oFlyBox.appendChild(this.obj);
+
+
+
+    };
+    botBoss.prototype.move=function () {
+      this.obj.style.top=this.obj.offsetTop+this.speed+'px';
+    };
+    function bossShow() {
+        oBossCXK=new botBoss('img/boss.gif',getRandom(0,235),-267,15,8);
+        aBoss.push(oBossCXK);
+
+    };
+    function bossmove() {
+        for (var i=0;i<aBoss.length;i++){
+            if (aBoss[i].dead==false){
+
+                aBoss[i].move();
+                if (aBoss[i].obj.offsetTop>=box.offsetHeight){
+
+
+                    oFlyBox.removeChild(aBoss[i].obj);
+
+
+
+                }
+
+            }else {
+                aBoss[i].deadtime--;
+
+                if(aBoss[i].deadtime==0) {
+
+
+                    oFlyBox.removeChild(aBoss[i].obj);
+
+                }
+
+            }
+        }
+    }
+
+
+    function findClos() {
+
+        oScroe.innerText=scroeVlue;
+        for (var i = 0; i < aFire.length; i++) {
+
+            for (var j = 0; j < cxk.length; j++) {
+
+                if (cxk[j].dead == false) {
+                    if (close(aFire[i].obj, cxk[j].obj)) {
+                        cxk[j].obj.src = 'img/botcxkdie.gif';
+                        cxk[j].dead = true;
+                        cxk[j].dieM.play();
+                        oFlyBox.removeChild(aFire[i].obj);
+                        aFire.splice(i, 1);
+                        scroeVlue+=100;
+                    }
+                }
+
+
+            }
+        }
+
+
+        for (var i=0;i<aBoss.length;i++){
+
+            for (var j=0;j<aFire.length;j++){
+
+                if (aBoss[i].dead==false){
+
+                        console.log(aBoss[i].dead);
+                    if (close(aFire[j].obj,aBoss[i].obj)){
+                        aBoss[i].blood--;
+
+
+
+                            if (aBoss[i].blood==0){
+                                aBoss[i].obj.src='img/bossclose.png';
+
+                                aBoss[i].deadM.play();
+                                scroeVlue+=1000;
+                                aBoss[i].dead=true;
+
+                            }
+                        oFlyBox.removeChild(aFire[j].obj);
+                        aFire.splice(j,1);
+
+
+                    }
+
+
+
+
+
+                }
+
+            } ;
+
+        } ;
+
+
+
+
+
+
+
+
+
+        for (var k = 0; k < cxk.length; k++) {
+            if (close(oPlayerFly.obj, cxk[k].obj)) {
+
+                gameOver();
+
+
+            }
+            ;
+
+
+        }
+        for (var i=0;i<aBoss.length;i++){
+            if (close(oPlayerFly.obj,aBoss[i].obj)){
+                gameOver();
+            }
+        }
+
+    }
+
+function gameOver() {
+        clearInterval(timer1);
+        clearInterval(timer2);
+        clearInterval(timer3);
+        clearInterval(timer4);
+        clearInterval(timer5);
+        clearInterval(timer6);
+        clearInterval(timer7);
+        oPlayerFly.obj.style.transition='opacity 0.8s linear';
+        oPlayerFly.obj.style.opacity='0';
+        setTimeout(function () {
+            oFlyBox.innerHTML = '';
+            bgm2.src = '';
+            gameOverM.src = 'music/gameover.mp3';
+            gameOverM.play();
+            cxk = [];
+            aFire = [];
+            aBoss =[];
+            oGameOverMenu.style.display = 'block';
+            oPlayerFly = null;
+        }, 1000)
+    }
+
+    var topFlag = false;
+    var leftFlag = false;
+    var bottomFlag = false;
+    var rightFlag = false;
+
+    document.onkeydown = function () {
+        switch (event.keyCode) {
+            case 37:
+                leftFlag = true;
+
+                break;
+            case 38:
+                topFlag = true;
+
+                break;
+            case 39:
+                rightFlag = true;
+
+                break;
+            case 40:
+                bottomFlag = true;
+                break;
+            case 32:
+                aFire.push(new Fire('img/firemod.png', oPlayerFly.obj.offsetLeft + 8, oPlayerFly.obj.offsetTop - 30, 20));
+                break;
+
+        }
+        return false;
+    };
+    document.onkeyup = function () {
+        switch (event.keyCode) {
+            case 37:
+                leftFlag = false;
+                break;
+            case 38:
+                topFlag = false;
+
+                break;
+            case 39:
+                rightFlag = false;
+
+                break;
+            case 40:
+                bottomFlag = false;
+                break;
+            case 32:
+
+                break;
+        }
+
+
+    };
+
+    document.onmousedown = function () {
+        return false;//阻止浏览器默认事件
+    };
+    window.onclick = function () {
+        clickM.src = 'music/click.wav';
+
+        clickM.play();
+        var obj = document.createElement('div');
+        obj.style.position = 'absolute';
+        obj.style.left = event.pageX - 25 + 'px';
+        obj.style.top = event.pageY - 25 + 'px';
+        obj.className = 'clickTeXiao';
+
+        setTimeout(function () {
+            document.body.removeChild(obj);
+        }, 500);
+        document.body.appendChild(obj);
+
+    };
+
+    function getRandom(min, max) {
+        return parseInt(Math.random() * (max - min) + min)
+    };
+
+    function close(thisElement, targetElement) {
+        var l1 = thisElement.offsetLeft;
+        var t1 = thisElement.offsetTop;
+        var b1 = thisElement.offsetTop + thisElement.offsetHeight;
+        var r1 = thisElement.offsetLeft + thisElement.offsetWidth;
+
+
+        var l2 = targetElement.offsetLeft;
+        var r2 = targetElement.offsetLeft + targetElement.offsetWidth;
+        var t2 = targetElement.offsetTop;
+        var b2 = targetElement.offsetTop + targetElement.offsetHeight;
+
+        if (((r1 >= l2 && r1 <= r2) || (l1 >= l2 && l1 <= r2)) && ((t1 >= t2 && t1 <= b2) || (b1 >= t2 && b1 < b2))) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+</script>
+</body>
+</html>
